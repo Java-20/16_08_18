@@ -1,4 +1,7 @@
-<input type="text" class="form-control" placeholder="Type email">
-<input type="text" class="form-control" placeholder="Type password">
-<button class="btn btn-success">Login</button>
+<input type="text" class="form-control"
+       placeholder="Type email" [(ngModel)] = "email">
+<input type="text" class="form-control"
+       placeholder="Type password" [(ngModel)] = "password">
+<button class="btn btn-success" (click)="onLogin()">Login</button>
 <hr>
+<p>{{result}}</p>

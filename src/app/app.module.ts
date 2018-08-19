@@ -8,6 +8,12 @@ import { LoginComponent } from './login/login.component';
 import { SecretComponent } from './secret/secret.component';
 import {RouterModule, Routes} from '@angular/router';
 import { InfoComponent } from './info/info.component';
+import {AuthGuardService} from './auth.guard.service';
+import {AuthService} from './auth.service';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import {HttpProvider} from './http.provider';
+
 
 
 const routes: Routes = [
@@ -16,7 +22,10 @@ const routes: Routes = [
       {path:':title/:time', component: InfoComponent}
     ]},
   {path:'login',component:LoginComponent},
-  {path:'secret',component:SecretComponent}
+  {path:'secret',
+    component:SecretComponent,
+    canActivate:[AuthGuardService]},
+  {path:'**',redirectTo:'login'}
 ];
 @NgModule({
   declarations: [
@@ -29,9 +38,11 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [AuthGuardService, AuthService, HttpProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
